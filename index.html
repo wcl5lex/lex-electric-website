@@ -30,10 +30,133 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--white);
+      background: #0D120A;
       color: var(--ink);
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    /* ===================== SPLASH ===================== */
+    #splash {
+      position: fixed;
+      inset: 0;
+      background: #0D120A;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.7s ease;
+    }
+
+    #splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    canvas#electric {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .splash-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bolt-wrap {
+      width: 80px;
+      height: 80px;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: scale(0.6);
+      animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+    }
+
+    .bolt-wrap svg {
+      width: 44px;
+      height: 44px;
+      fill: white;
+    }
+
+    .splash-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: slideUp 0.6s ease 0.6s forwards;
+    }
+
+    .splash-name span { color: var(--green-mid); }
+
+    .splash-tagline {
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #4A6A38;
+      margin-top: 16px;
+      opacity: 0;
+      animation: fadeIn 0.6s ease 1.0s forwards;
+    }
+
+    .splash-divider {
+      width: 48px;
+      height: 2px;
+      background: var(--green-light);
+      margin: 20px auto;
+      opacity: 0;
+      animation: fadeIn 0.4s ease 1.2s forwards;
+    }
+
+    .splash-location {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #3A5230;
+      opacity: 0;
+      animation: fadeIn 0.4s ease 1.4s forwards;
+    }
+
+    .splash-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: var(--green-light);
+      width: 0%;
+      animation: progress 3.2s linear 1.0s forwards;
+    }
+
+    @keyframes popIn { to { opacity: 1; transform: scale(1); } }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes progress { to { width: 100%; } }
+
+    /* ===================== MAIN SITE ===================== */
+    #main {
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      background: var(--white);
+    }
+
+    #main.visible { opacity: 1; }
 
     .container {
       max-width: 1160px;
@@ -41,7 +164,7 @@
       padding: 0 24px;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       background: var(--steel);
       position: sticky;
@@ -76,11 +199,7 @@
       justify-content: center;
     }
 
-    .logo-mark svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--white);
-    }
+    .logo-mark svg { width: 20px; height: 20px; fill: var(--white); }
 
     .logo-text {
       font-family: 'Barlow Condensed', sans-serif;
@@ -100,11 +219,7 @@
       letter-spacing: 0.12em;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2rem;
-    }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
 
     nav ul a {
       color: #B8C9A8;
@@ -125,12 +240,9 @@
       font-size: 0.78rem !important;
     }
 
-    .nav-cta:hover {
-      background: var(--green);
-      color: var(--white) !important;
-    }
+    .nav-cta:hover { background: var(--green); color: var(--white) !important; }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       background: var(--steel);
       position: relative;
@@ -184,10 +296,7 @@
       margin-bottom: 24px;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--green-mid);
-    }
+    .hero h1 em { font-style: normal; color: var(--green-mid); }
 
     .hero-sub {
       font-size: 1.05rem;
@@ -197,11 +306,7 @@
       margin-bottom: 40px;
     }
 
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .btn-primary {
       display: inline-block;
@@ -214,12 +319,12 @@
       text-transform: uppercase;
       text-decoration: none;
       transition: background 0.2s, transform 0.15s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
 
-    .btn-primary:hover {
-      background: var(--green);
-      transform: translateY(-2px);
-    }
+    .btn-primary:hover { background: var(--green); transform: translateY(-2px); }
 
     .btn-outline {
       display: inline-block;
@@ -234,17 +339,13 @@
       transition: border-color 0.2s, color 0.2s;
     }
 
-    .btn-outline:hover {
-      border-color: var(--green-mid);
-      color: var(--green-mid);
-    }
+    .btn-outline:hover { border-color: var(--green-mid); color: var(--green-mid); }
 
     .hero-right {
       background: var(--green-deep);
       position: relative;
       display: flex;
       align-items: flex-end;
-      padding: 0;
       overflow: hidden;
     }
 
@@ -293,7 +394,7 @@
       display: block;
     }
 
-    /* ── SECTION HEADERS ── */
+    /* SECTION HEADERS */
     .section-label {
       font-size: 0.7rem;
       font-weight: 700;
@@ -324,15 +425,9 @@
       line-height: 1.05;
     }
 
-    /* ── SERVICES ── */
-    .services {
-      padding: 96px 0;
-      background: var(--off-white);
-    }
-
-    .services-header {
-      margin-bottom: 56px;
-    }
+    /* SERVICES */
+    .services { padding: 96px 0; background: var(--off-white); }
+    .services-header { margin-bottom: 56px; }
 
     .services-grid {
       display: grid;
@@ -345,13 +440,9 @@
       padding: 36px 32px;
       border-top: 3px solid transparent;
       transition: border-color 0.2s, transform 0.2s;
-      cursor: default;
     }
 
-    .service-card:hover {
-      border-top-color: var(--green-light);
-      transform: translateY(-4px);
-    }
+    .service-card:hover { border-top-color: var(--green-light); transform: translateY(-4px); }
 
     .service-icon-wrap {
       width: 44px;
@@ -373,33 +464,13 @@
       stroke-linejoin: round;
     }
 
-    .service-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 10px;
-      letter-spacing: 0.01em;
-    }
+    .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
 
-    .service-card p {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-
-    /* ── CLIENTS ── */
-    .clients {
-      padding: 96px 0;
-      background: var(--steel);
-    }
-
+    /* CLIENTS */
+    .clients { padding: 96px 0; background: var(--steel); }
     .clients .section-label { color: var(--green-mid); }
     .clients .section-label::before { background: var(--green-mid); }
-
-    .clients .section-title {
-      color: var(--white);
-      margin-bottom: 56px;
-    }
 
     .clients-grid {
       display: grid;
@@ -414,36 +485,14 @@
       transition: background 0.2s, border-color 0.2s;
     }
 
-    .client-card:hover {
-      background: rgba(99,153,34,0.08);
-      border-color: rgba(99,153,34,0.35);
-    }
+    .client-card:hover { background: rgba(99,153,34,0.08); border-color: rgba(99,153,34,0.35); }
 
-    .client-card-icon {
-      width: 40px;
-      height: 3px;
-      background: var(--green-light);
-      margin-bottom: 20px;
-    }
+    .client-card-icon { width: 40px; height: 3px; background: var(--green-light); margin-bottom: 20px; }
+    .client-card h3 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .client-card p { font-size: 0.82rem; color: #5A7A46; line-height: 1.6; }
 
-    .client-card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .client-card p {
-      font-size: 0.82rem;
-      color: #5A7A46;
-      line-height: 1.6;
-    }
-
-    /* ── ABOUT ── */
-    .about {
-      padding: 96px 0;
-      background: var(--white);
-    }
+    /* ABOUT */
+    .about { padding: 96px 0; background: var(--white); }
 
     .about-inner {
       display: grid;
@@ -452,20 +501,9 @@
       align-items: center;
     }
 
-    .about-text p {
-      font-size: 1.0rem;
-      color: var(--muted);
-      line-height: 1.85;
-      margin-bottom: 20px;
-    }
-
+    .about-text p { font-size: 1.0rem; color: var(--muted); line-height: 1.85; margin-bottom: 20px; }
     .about-text p:last-child { margin-bottom: 0; }
-
-    .about-visual {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .about-visual { display: flex; flex-direction: column; gap: 2px; }
 
     .credential {
       background: var(--off-white);
@@ -499,24 +537,11 @@
       stroke-linejoin: round;
     }
 
-    .credential-text strong {
-      display: block;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin-bottom: 3px;
-    }
+    .credential-text strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .credential-text span { font-size: 0.8rem; color: var(--muted); }
 
-    .credential-text span {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* ── CONTACT ── */
-    .contact {
-      padding: 96px 0;
-      background: var(--off-white);
-    }
+    /* CONTACT */
+    .contact { padding: 96px 0; background: var(--off-white); }
 
     .contact-inner {
       display: grid;
@@ -525,12 +550,7 @@
       align-items: start;
     }
 
-    .contact-info-block {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .contact-info-block { margin-top: 40px; display: flex; flex-direction: column; gap: 2px; }
 
     .contact-row {
       background: var(--white);
@@ -564,13 +584,7 @@
     }
 
     .contact-row-text a,
-    .contact-row-text span {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--ink);
-      text-decoration: none;
-    }
-
+    .contact-row-text span { font-size: 0.95rem; font-weight: 600; color: var(--ink); text-decoration: none; }
     .contact-row-text a:hover { color: var(--green-light); }
 
     .contact-form {
@@ -589,13 +603,7 @@
       letter-spacing: 0.02em;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     .form-full { grid-column: 1 / -1; }
 
     .contact-form input,
@@ -620,33 +628,13 @@
 
     .contact-form textarea { resize: vertical; min-height: 130px; }
 
-    .contact-form .btn-primary {
-      width: 100%;
-      text-align: center;
-      margin-top: 8px;
-      padding: 15px;
-      cursor: pointer;
-      font-family: inherit;
-      border: none;
-    }
+    .contact-form .btn-primary { width: 100%; text-align: center; margin-top: 8px; padding: 15px; }
 
-    /* ── FOOTER ── */
-    footer {
-      background: var(--green-deep);
-      padding: 28px 0;
-      border-top: 3px solid var(--green-dark);
-    }
+    /* FOOTER */
+    footer { background: var(--green-deep); padding: 28px 0; border-top: 3px solid var(--green-dark); }
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-copy {
-      font-size: 0.8rem;
-      color: #4A6A38;
-    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.8rem; color: #4A6A38; }
 
     .footer-name {
       font-family: 'Barlow Condensed', sans-serif;
@@ -657,7 +645,7 @@
       letter-spacing: 0.08em;
     }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
       .hero-right { display: none; }
@@ -682,274 +670,367 @@
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="inner">
-    <a href="#home" class="logo">
-      <div class="logo-mark">
-        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11 2L3 12h7l-1 6 8-10h-7l1-6z"/>
-        </svg>
-      </div>
-      <div class="logo-text">
-        Lex Electric
-        <span>Co., Inc — Media, PA</span>
-      </div>
-    </a>
-    <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#clients">Clients</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
-    </ul>
+<!-- ==================== SPLASH SCREEN ==================== -->
+<div id="splash">
+  <canvas id="electric"></canvas>
+  <div class="splash-content">
+    <div class="bolt-wrap">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13 2L4.5 13.5H11L10 22L19.5 10.5H13L13 2Z"/>
+      </svg>
+    </div>
+    <h1 class="splash-name">Lex <span>Electric</span></h1>
+    <p class="splash-tagline">Commercial &amp; Industrial Electrical</p>
+    <div class="splash-divider"></div>
+    <p class="splash-location">Media, Pennsylvania · Est. 2000</p>
   </div>
-</nav>
+  <div class="splash-progress"></div>
+</div>
 
-<!-- HERO -->
-<section id="home" class="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div class="hero-left">
-        <p class="hero-eyebrow">Commercial &amp; Industrial Electrical</p>
-        <h1>Built for<br><em>Large-Scale</em><br>Projects</h1>
-        <p class="hero-sub">Trusted by Fortune 500 companies, universities, and major venues across Pennsylvania. We handle the electrical work that demands precision and experience.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Request a Quote</a>
-          <a href="#services" class="btn-outline">Our Services</a>
+<!-- ==================== MAIN SITE ==================== -->
+<div id="main">
+
+  <nav>
+    <div class="inner">
+      <a href="#home" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 2L3 12h7l-1 6 8-10h-7l1-6z"/>
+          </svg>
         </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-pattern"></div>
-        <div class="hero-stats">
-          <div class="h-stat">
-            <span class="h-stat-num">25+</span>
-            <span class="h-stat-label">Years in Operation</span>
+        <div class="logo-text">
+          Lex Electric
+          <span>Co., Inc — Media, PA</span>
+        </div>
+      </a>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#clients">Clients</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <p class="hero-eyebrow">Commercial &amp; Industrial Electrical</p>
+          <h1>Built for<br><em>Large-Scale</em><br>Projects</h1>
+          <p class="hero-sub">Trusted by Fortune 500 companies, universities, and major venues across Pennsylvania. We handle the electrical work that demands precision and experience.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">Request a Quote</a>
+            <a href="#services" class="btn-outline">Our Services</a>
           </div>
-          <div class="h-stat">
-            <span class="h-stat-num">150+</span>
-            <span class="h-stat-label">Projects Completed</span>
-          </div>
-          <div class="h-stat">
-            <span class="h-stat-num">10+</span>
-            <span class="h-stat-label">Major Clients</span>
-          </div>
-          <div class="h-stat">
-            <span class="h-stat-num">100%</span>
-            <span class="h-stat-label">Code Compliant</span>
+        </div>
+        <div class="hero-right">
+          <div class="hero-pattern"></div>
+          <div class="hero-stats">
+            <div class="h-stat">
+              <span class="h-stat-num">25+</span>
+              <span class="h-stat-label">Years in Operation</span>
+            </div>
+            <div class="h-stat">
+              <span class="h-stat-num">150+</span>
+              <span class="h-stat-label">Projects Completed</span>
+            </div>
+            <div class="h-stat">
+              <span class="h-stat-num">10+</span>
+              <span class="h-stat-label">Major Clients</span>
+            </div>
+            <div class="h-stat">
+              <span class="h-stat-num">100%</span>
+              <span class="h-stat-label">Code Compliant</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SERVICES -->
-<section id="services" class="services">
-  <div class="container">
-    <div class="services-header">
-      <p class="section-label">What We Do</p>
-      <h2 class="section-title">Our Services</h2>
-    </div>
-    <div class="services-grid">
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+  <section id="services" class="services">
+    <div class="container">
+      <div class="services-header">
+        <p class="section-label">What We Do</p>
+        <h2 class="section-title">Our Services</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+          </div>
+          <h3>Electrical Construction</h3>
+          <p>Complete electrical installation for new construction projects, from design coordination through final commissioning.</p>
         </div>
-        <h3>Electrical Construction</h3>
-        <p>Complete electrical installation for new construction projects, from design coordination through final commissioning.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <div class="service-card">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          </div>
+          <h3>Lighting Systems</h3>
+          <p>Advanced lighting design and installation for commercial, industrial, and large-scale institutional facilities.</p>
         </div>
-        <h3>Lighting Systems</h3>
-        <p>Advanced lighting design and installation for commercial, industrial, and large-scale institutional facilities.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <div class="service-card">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="1"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <h3>Commercial &amp; Industrial</h3>
+          <p>Specialized electrical contracting for large-scale commercial developments and heavy industrial applications.</p>
         </div>
-        <h3>Commercial &amp; Industrial</h3>
-        <p>Specialized electrical contracting for large-scale commercial developments and heavy industrial applications.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        <div class="service-card">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3>Maintenance &amp; Repairs</h3>
+          <p>Scheduled maintenance programs and emergency repair services to keep critical facility systems running.</p>
         </div>
-        <h3>Maintenance &amp; Repairs</h3>
-        <p>Scheduled maintenance programs and emergency repair services to keep critical facility systems running.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div class="service-card">
+          <div class="service-icon-wrap">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>System Design</h3>
+          <p>Expert electrical system design and engineering support for complex commercial and institutional projects.</p>
         </div>
-        <h3>System Design</h3>
-        <p>Expert electrical system design and engineering support for complex commercial and institutional projects.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon-wrap">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3>Code Compliance</h3>
-        <p>All work meets or exceeds current NEC electrical codes and applicable local standards — documented and inspected.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CLIENTS -->
-<section id="clients" class="clients">
-  <div class="container">
-    <p class="section-label">Who We Work With</p>
-    <h2 class="section-title" style="color: var(--white); margin-bottom: 56px;">Trusted by Industry Leaders</h2>
-    <div class="clients-grid">
-
-      <div class="client-card">
-        <div class="client-card-icon"></div>
-        <h3>Temple University</h3>
-        <p>Major electrical construction and lighting systems for Philadelphia's leading research institution.</p>
-      </div>
-
-      <div class="client-card">
-        <div class="client-card-icon"></div>
-        <h3>Xfinity Center</h3>
-        <p>Large-scale electrical work for the home of the Philadelphia 76ers and Flyers.</p>
-      </div>
-
-      <div class="client-card">
-        <div class="client-card-icon"></div>
-        <h3>Universities &amp; Schools</h3>
-        <p>Lighting and electrical construction across regional educational institutions throughout Pennsylvania.</p>
-      </div>
-
-      <div class="client-card">
-        <div class="client-card-icon"></div>
-        <h3>Fortune 500 Companies</h3>
-        <p>Commercial electrical contracting for major corporations requiring precision at scale.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="about">
-  <div class="container">
-    <div class="about-inner">
-      <div>
-        <p class="section-label">Who We Are</p>
-        <h2 class="section-title" style="margin-bottom: 32px;">About Lex Electric</h2>
-        <div class="about-text">
-          <p>For over 25 years, Lex Electric Co., Inc has been the electrical contractor of choice for the region's most demanding commercial and industrial projects. Based in Media, PA, we bring deep expertise and consistent reliability to every engagement.</p>
-          <p>We specialize in large-scale work — the kind that requires precision coordination, experienced crews, and a firm grasp of code compliance at every stage. From new construction at Temple University to electrical systems at the Xfinity Center, our work supports institutions the region depends on.</p>
-        </div>
-      </div>
-      <div class="about-visual">
-        <div class="credential">
-          <div class="credential-icon">
+        <div class="service-card">
+          <div class="service-icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <div class="credential-text">
-            <strong>Licensed &amp; Insured</strong>
-            <span>Fully licensed electrical contractor in Pennsylvania</span>
+          <h3>Code Compliance</h3>
+          <p>All work meets or exceeds current NEC electrical codes and applicable local standards — documented and inspected.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clients" class="clients">
+    <div class="container">
+      <p class="section-label">Who We Work With</p>
+      <h2 class="section-title" style="color:var(--white);margin-bottom:56px;">Trusted by Industry Leaders</h2>
+      <div class="clients-grid">
+        <div class="client-card">
+          <div class="client-card-icon"></div>
+          <h3>Temple University</h3>
+          <p>Major electrical construction and lighting systems for Philadelphia's leading research institution.</p>
+        </div>
+        <div class="client-card">
+          <div class="client-card-icon"></div>
+          <h3>Xfinity Center</h3>
+          <p>Large-scale electrical work for the home of the Philadelphia 76ers and Flyers.</p>
+        </div>
+        <div class="client-card">
+          <div class="client-card-icon"></div>
+          <h3>Universities &amp; Schools</h3>
+          <p>Lighting and electrical construction across regional educational institutions throughout Pennsylvania.</p>
+        </div>
+        <div class="client-card">
+          <div class="client-card-icon"></div>
+          <h3>Fortune 500 Companies</h3>
+          <p>Commercial electrical contracting for major corporations requiring precision at scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-inner">
+        <div>
+          <p class="section-label">Who We Are</p>
+          <h2 class="section-title" style="margin-bottom:32px;">About Lex Electric</h2>
+          <div class="about-text">
+            <p>For over 25 years, Lex Electric Co., Inc has been the electrical contractor of choice for the region's most demanding commercial and industrial projects. Based in Media, PA, we bring deep expertise and consistent reliability to every engagement.</p>
+            <p>We specialize in large-scale work — the kind that requires precision coordination, experienced crews, and a firm grasp of code compliance at every stage. From new construction at Temple University to electrical systems at the Xfinity Center, our work supports institutions the region depends on.</p>
           </div>
         </div>
-        <div class="credential">
-          <div class="credential-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <div class="about-visual">
+          <div class="credential">
+            <div class="credential-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="credential-text">
+              <strong>Licensed &amp; Insured</strong>
+              <span>Fully licensed electrical contractor in Pennsylvania</span>
+            </div>
           </div>
-          <div class="credential-text">
-            <strong>NEC Code Compliant</strong>
-            <span>All work meets current National Electrical Code standards</span>
+          <div class="credential">
+            <div class="credential-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="credential-text">
+              <strong>NEC Code Compliant</strong>
+              <span>All work meets current National Electrical Code standards</span>
+            </div>
           </div>
-        </div>
-        <div class="credential">
-          <div class="credential-icon">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <div class="credential">
+            <div class="credential-icon">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="credential-text">
+              <strong>Institutional Experience</strong>
+              <span>Proven track record with universities, arenas, and corporations</span>
+            </div>
           </div>
-          <div class="credential-text">
-            <strong>Institutional Experience</strong>
-            <span>Proven track record with universities, arenas, and corporations</span>
-          </div>
-        </div>
-        <div class="credential">
-          <div class="credential-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div class="credential-text">
-            <strong>On-Time Delivery</strong>
-            <span>Project management built around your schedule and milestones</span>
+          <div class="credential">
+            <div class="credential-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="credential-text">
+              <strong>On-Time Delivery</strong>
+              <span>Project management built around your schedule and milestones</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="contact-inner">
-      <div>
-        <p class="section-label">Get in Touch</p>
-        <h2 class="section-title" style="margin-bottom: 12px;">Let's Discuss<br>Your Project</h2>
-        <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin-top: 16px;">Ready to move forward? Contact us directly or use the form to send project details. We respond to all inquiries within one business day.</p>
-        <div class="contact-info-block">
-          <div class="contact-row">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.49 5.49l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
-            <div class="contact-row-text">
-              <strong>Phone</strong>
-              <a href="tel:6105669090">(610) 566-9090</a>
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="contact-inner">
+        <div>
+          <p class="section-label">Get in Touch</p>
+          <h2 class="section-title" style="margin-bottom:12px;">Let's Discuss<br>Your Project</h2>
+          <p style="font-size:0.9rem;color:var(--muted);line-height:1.75;margin-top:16px;">Ready to move forward? Contact us directly or use the form to send project details. We respond to all inquiries within one business day.</p>
+          <div class="contact-info-block">
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.49 5.49l.99-.99a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/></svg>
+              <div class="contact-row-text">
+                <strong>Phone</strong>
+                <a href="tel:6105669090">(610) 566-9090</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            <div class="contact-row-text">
-              <strong>Email</strong>
-              <a href="mailto:info@LexElectricCompany.com">info@LexElectricCompany.com</a>
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <div class="contact-row-text">
+                <strong>Email</strong>
+                <a href="mailto:info@LexElectricCompany.com">info@LexElectricCompany.com</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-row">
-            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <div class="contact-row-text">
-              <strong>Location</strong>
-              <span>Media, PA</span>
+            <div class="contact-row">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div class="contact-row-text">
+                <strong>Location</strong>
+                <span>Media, PA</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="contact-form">
-        <h3>Request a Quote</h3>
-        <div class="form-grid">
-          <input type="text" placeholder="Your Name" required>
-          <input type="email" placeholder="Email Address" required>
-          <input type="tel" placeholder="Phone Number" class="form-full">
-          <input type="text" placeholder="Company / Organization" class="form-full">
-          <textarea placeholder="Describe your project — scope, location, timeline..." class="form-full"></textarea>
+        <div class="contact-form">
+          <h3>Request a Quote</h3>
+          <div class="form-grid">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="tel" placeholder="Phone Number" class="form-full">
+            <input type="text" placeholder="Company / Organization" class="form-full">
+            <textarea placeholder="Describe your project — scope, location, timeline..." class="form-full"></textarea>
+          </div>
+          <button type="submit" class="btn-primary">Send Request</button>
         </div>
-        <button type="submit" class="btn-primary">Send Request</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <span class="footer-name">Lex Electric Co., Inc</span>
-      <span class="footer-copy">&copy; 2026 · Media, PA · All rights reserved</span>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-name">Lex Electric Co., Inc</span>
+        <span class="footer-copy">&copy; 2026 · Media, PA · All rights reserved</span>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
+
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  const canvas = document.getElementById('electric');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function lightning(x1, y1, x2, y2, offset, alpha) {
+    const pts = [[x1, y1]];
+    for (let i = 1; i < 8; i++) {
+      const t = i / 8;
+      pts.push([
+        x1 + (x2 - x1) * t + (Math.random() - 0.5) * offset,
+        y1 + (y2 - y1) * t + (Math.random() - 0.5) * offset
+      ]);
+    }
+    pts.push([x2, y2]);
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.strokeStyle = `rgba(99,153,34,${alpha})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.strokeStyle = `rgba(192,221,151,${alpha * 0.4})`;
+    ctx.lineWidth = 0.4;
+    ctx.stroke();
+  }
+
+  function spawnBolt() {
+    const w = canvas.width, h = canvas.height;
+    const edge = Math.floor(Math.random() * 4);
+    let x1, y1, x2, y2;
+    if (edge === 0)      { x1 = Math.random()*w; y1 = 0; x2 = Math.random()*w; y2 = Math.random()*h*0.6+h*0.2; }
+    else if (edge === 1) { x1 = w; y1 = Math.random()*h; x2 = Math.random()*w*0.6; y2 = Math.random()*h; }
+    else if (edge === 2) { x1 = Math.random()*w; y1 = h; x2 = Math.random()*w; y2 = Math.random()*h*0.4+h*0.3; }
+    else                 { x1 = 0; y1 = Math.random()*h; x2 = Math.random()*w*0.6+w*0.2; y2 = Math.random()*h; }
+    return { x1, y1, x2, y2, life: 0, maxLife: 6 + Math.floor(Math.random() * 8) };
+  }
+
+  let frame = 0, bolts = [];
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(13,18,10,0.92)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    if (frame % 18 === 0) bolts.push(spawnBolt());
+    if (frame % 30 === 0 && Math.random() > 0.5) bolts.push(spawnBolt());
+    bolts = bolts.filter(b => b.life < b.maxLife);
+
+    for (const b of bolts) {
+      const t = b.life / b.maxLife;
+      const alpha = t < 0.3 ? t / 0.3 : 1 - (t - 0.3) / 0.7;
+      lightning(b.x1, b.y1, b.x2, b.y2, 80, alpha * 0.7);
+      if (b.life % 2 === 0) lightning(b.x1, b.y1, b.x2, b.y2, 40, alpha * 0.4);
+      b.life++;
+    }
+
+    const cx = canvas.width / 2, cy = canvas.height / 2;
+    const pulse = Math.sin(frame * 0.05) * 0.3 + 0.7;
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, 280);
+    grd.addColorStop(0, `rgba(59,109,17,${0.12 * pulse})`);
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    frame++;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('fade-out');
+    const main = document.getElementById('main');
+    main.classList.add('visible');
+    document.body.style.background = '#ffffff';
+    setTimeout(() => {
+      document.getElementById('splash').style.display = 'none';
+    }, 800);
+  }, 4200);
+</script>
 
 </body>
 </html>
